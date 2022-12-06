@@ -1,6 +1,6 @@
 const path = require('path');
-
-const { renderMarkdown } = require('../service');
+const _ = require("lodash");
+const { renderMarkdown, encryptString } = require('../service');
 const { config } = require('../config');
 
 const { join } = path;
@@ -11,18 +11,45 @@ function setHook(name, hook) {
     hooks.push({ name, hook });
 }
 
+function isDirectoryItem(item) {
+    return item._private.list && item.items;
+}
+
 setHook('markdown', (items) =>
     items.map((item) => {
-        item.content = item.content && renderMarkdown(item.content, item._private.path);
+        item.content =
+            item.content && renderMarkdown(item.content, item._private.path);
         return item;
     })
 );
 
 setHook('encrypt', (items) =>
     items.map((item) => {
+        if(item.lock) {
+            if(item.lock === true) {
+                item.content = encryptString(item.content, config.encryptKey);
+            } else if(_.isString(item.lock)) {
+                item.content = encryptString(item.content, item.lock);
+            }
+        }
         return item;
     })
 );
+
+setHook('except', (items) => {
+    const map = {};
+    items.forEach((item) => {
+        map[item.id] = item;
+    });
+
+    items = items.filter((item) => !item._private.except);
+    items.filter(isDirectoryItem).forEach((item) => {
+        item.items = item.items.filter((id) => {
+            return !map[id].except;
+        });
+    });
+    return items;
+});
 
 setHook('core', (items) => {
     const JSON_POSTFIX = '.json';
@@ -34,10 +61,9 @@ setHook('core', (items) => {
     });
 
     // build linked obj
-    items
-        .filter((item) => item._private.list && item.items)
-        .forEach((item) => {
-            item.items = item.items.map((itemId) => {
+    items.filter(isDirectoryItem).forEach((item) => {
+        item.items = item.items
+            .map((itemId) => {
                 const linkedObj = map[itemId];
                 linkedObj._private.linked = true;
                 const { id, title, mtime } = linkedObj;
@@ -46,8 +72,9 @@ setHook('core', (items) => {
                     title,
                     mtime,
                 };
-            });
-        });
+            })
+            .filter((item) => !item.except);
+    });
 
     // generate save path
     items.forEach((item) => {

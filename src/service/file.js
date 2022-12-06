@@ -64,28 +64,44 @@ async function collectAllFilesInDir(path) {
     return arr;
 }
 
+function getMergeProps(...args) {
+    for (let i = 0; i < args.length; i++) {
+        if (args[i] !== undefined) {
+            return args[i];
+        }
+    }
+}
+
 async function readMarkdownFile(filePath) {
     const mtime = (await fs.stat(filePath)).mtime.getTime();
     const ctime = (await fs.stat(filePath)).ctime.getTime();
 
     const fileContent = (await fs.readFile(filePath)).toString();
     const { attributes, body: content } = fm(fileContent);
+    const {
+        ctime: _ctime,
+        mtime: _mtime,
+        except,
+        title,
+        ...extraAttrs
+    } = attributes;
 
     const id = attributes.id || getStringMD5(filePath);
     const filename = encodeURIComponent(
         path.basename(filePath).replace(new RegExp('.md$'), '')
     );
-    const title = attributes.title || filename;
+
     const md5 = getStringMD5(content);
     return {
-        ctime,
-        mtime,
-        ...attributes,
+        ctime: getMergeProps(_ctime, ctime),
+        mtime: getMergeProps(_mtime, mtime),
+        ...extraAttrs,
         _private: {
             path: filePath,
+            except,
         },
         id,
-        title,
+        title: getMergeProps(title, filename),
         md5,
         content,
     };
