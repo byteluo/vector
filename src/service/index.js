@@ -1,14 +1,14 @@
-const { parallelRun } = require('./promise')
-const { renderMarkdown, handleMarkdownImage } = require('./markdown')
-const { getStringMD5, encryptString } = require('./md5')
+const { parallelRun } = require('./promise');
+const { renderMarkdown, handleMarkdownImage } = require('./markdown');
+const { getStringMD5, encryptString } = require('./md5');
 const {
     isFileExist,
     readDir,
     readMarkdownFile,
     ensureParentDirExit,
     isDirExist,
-} = require('./file')
-const Log = require('./log')
+} = require('./file');
+const Log = require('./log');
 
 module.exports = {
     parallelRun,
@@ -22,4 +22,4 @@ module.exports = {
     readMarkdownFile,
     ensureParentDirExit,
     isDirExist,
-}
+};

@@ -1,10 +1,10 @@
-const fs = require('fs/promises')
+const fs = require('fs/promises');
 
-const argv = require('argv')
+const argv = require('argv');
 
-const { config, setConfig } = require('./config')
-const { startRender } = require('./engine')
-const { Log } = require('./service')
+const { config, setConfig } = require('./config');
+const { startRender } = require('./engine');
+const { Log } = require('./service');
 
 const { options } = argv
     .option({
@@ -13,18 +13,18 @@ const { options } = argv
         type: 'string',
         description: 'Specify the config file path.',
     })
-    .run()
+    .run();
 
-const { config: configArg } = options
+const { config: configArg } = options;
 
-;(async function () {
+(async function () {
     if (configArg) {
         try {
-            const configContent = await fs.readFile(configArg)
-            setConfig(JSON.parse(configContent))
+            const configContent = await fs.readFile(configArg);
+            setConfig(JSON.parse(configContent));
         } catch (err) {
-            Log.error('Read Config File Failed', err)
+            Log.error('Read Config File Failed', err);
         }
     }
-    startRender(config)
-})()
+    startRender(config);
+})();
