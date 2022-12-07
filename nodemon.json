@@ -1,0 +1,11 @@
+{
+  "restartable": "rs",
+  "watch": [
+    "src",
+    "source"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js,json,ts,md"
+}
