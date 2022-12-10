@@ -74,8 +74,12 @@ async function readWebsiteData(dirPath) {
     return result;
 }
 
-async function startRender() {
-    const config = Config.getConfig();
+async function startRender(config) {
+    Config.resetConfig();
+    if (config) {
+        Config.setConfig(config);
+    }
+    config = Config.getConfig();
     Log.info('Start Render!', config);
     await handleMarkdownImage(config.sourceDir, config.distDir);
     const websiteData = await readWebsiteData(config.sourceDir);

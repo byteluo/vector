@@ -5,6 +5,7 @@ const config = {
     distDir: path.resolve('dist'),
     dataDir: path.join('data'),
     encryptKey: '123456',
+    gitRepoes: [{ tag: '_ROOT', url: 'git@gitee.com:bytesci/treecat-doc.git' }],
 };
 
 function setConfig(userConfig) {

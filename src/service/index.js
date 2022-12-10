@@ -9,6 +9,7 @@ const {
     isDirExist,
 } = require('./file');
 const Log = require('./log');
+const Git = require('./git');
 
 module.exports = {
     parallelRun,
@@ -22,4 +23,5 @@ module.exports = {
     readMarkdownFile,
     ensureParentDirExit,
     isDirExist,
+    Git,
 };
