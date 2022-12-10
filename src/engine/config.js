@@ -20,7 +20,6 @@ function resetConfig() {
 }
 
 module.exports = {
-    config,
     resetConfig,
     getConfig,
     setConfig
