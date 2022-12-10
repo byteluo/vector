@@ -1,7 +1,7 @@
 const path = require('path');
-const _ = require("lodash");
+const _ = require('lodash');
 const { renderMarkdown, encryptString } = require('../service');
-const { config } = require('../config');
+const Config = require('../engine/config');
 
 const { join } = path;
 
@@ -25,10 +25,13 @@ setHook('markdown', (items) =>
 
 setHook('encrypt', (items) =>
     items.map((item) => {
-        if(item.lock) {
-            if(item.lock === true) {
-                item.content = encryptString(item.content, config.encryptKey);
-            } else if(_.isString(item.lock)) {
+        if (item.lock) {
+            if (item.lock === true) {
+                item.content = encryptString(
+                    item.content,
+                    Config.getConfig().encryptKey
+                );
+            } else if (_.isString(item.lock)) {
                 item.content = encryptString(item.content, item.lock);
             }
         }
@@ -52,6 +55,8 @@ setHook('except', (items) => {
 });
 
 setHook('core', (items) => {
+    const config = Config.getConfig();
+
     const JSON_POSTFIX = '.json';
 
     // build map

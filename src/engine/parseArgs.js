@@ -2,11 +2,11 @@ const fs = require('fs/promises');
 
 const argv = require('argv');
 
-const { setConfig } = require('../config');
-
-const { Log } = require('../service');
+const Config = require('./config');
+const service = require('../service');
 
 async function parseArge() {
+    const { Log } = service;
     const { options } = argv
         .option({
             name: 'config',
@@ -20,7 +20,7 @@ async function parseArge() {
     if (configArg) {
         try {
             const configContent = await fs.readFile(configArg);
-            setConfig(JSON.parse(configContent));
+            Config.setConfig(JSON.parse(configContent));
         } catch (err) {
             Log.error('Read Config File Failed', err);
         }
@@ -28,5 +28,5 @@ async function parseArge() {
 }
 
 module.exports = {
-    parseArge
-}
+    parseArge,
+};

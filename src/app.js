@@ -1,5 +1,5 @@
-const {parseArgs, startRender} = require("./engine");
+const { parseArgs, startRender } = require('./engine');
 
 parseArgs().then(() => {
     startRender();
-})
+});
