@@ -11,7 +11,17 @@ function setConfig(userConfig) {
     Object.assign(config, userConfig);
 }
 
+function getConfig() {
+    return config;
+}
+
+function resetConfig() {
+
+}
+
 module.exports = {
     config,
     setConfig,
+    getConfig,
+    setConfig
 };

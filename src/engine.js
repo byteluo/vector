@@ -1,9 +1,10 @@
 const path = require('path');
 const fs = require('fs/promises');
 
-const { parallelRun } = require('./service/promise');
-const { setHooks } = require('./hook');
-const { config } = require('./config');
+const service = require('./service');
+const Hook = require('./hook');
+const Config = require('./config');
+
 const {
     handleMarkdownImage,
     Log,
@@ -52,7 +53,7 @@ async function readWebsiteData(dirPath) {
         return;
     }
 
-    const fileObjs = await parallelRun(markdownFiles, (file) =>
+    const fileObjs = await service.parallelRun(markdownFiles, (file) =>
         readMarkdownFile(file.path)
     );
     result.push(...fileObjs);
@@ -60,7 +61,7 @@ async function readWebsiteData(dirPath) {
     dirObj.items = fileObjs.map((obj) => obj.id);
 
     const subDirs = files.filter((el) => !el.isFile);
-    const subDirObjs = await parallelRun(subDirs, (dir) =>
+    const subDirObjs = await service.parallelRun(subDirs, (dir) =>
         readWebsiteData(dir.path)
     );
 
@@ -74,14 +75,15 @@ async function readWebsiteData(dirPath) {
 }
 
 async function startRender() {
+    const config = Config.getConfig();
     Log.info('Start Render!', config);
     await handleMarkdownImage(config.sourceDir, config.distDir);
     const websiteData = await readWebsiteData(config.sourceDir);
 
     // use hooks handle middle data
-    const handledData = setHooks(websiteData);
+    const handledData = Hook.setHooks(websiteData);
 
-    await parallelRun(handledData, async (obj) => {
+    await service.parallelRun(handledData, async (obj) => {
         const { _private, ...restProps } = obj;
         await ensureParentDirExit(_private.savePath);
         _private.savePath && await fs.writeFile(_private.savePath, JSON.stringify(restProps));
