@@ -1,9 +1,9 @@
 const path = require('path');
 const fs = require('fs/promises');
 
-const service = require('./service');
-const Hook = require('./hook');
-const Config = require('./config');
+const service = require('../service');
+const Hook = require('../hook');
+const Config = require('../config');
 
 const {
     handleMarkdownImage,
@@ -13,7 +13,7 @@ const {
     readMarkdownFile,
     ensureParentDirExit,
     getStringMD5,
-} = require('./service');
+} = require('../service');
 
 const { resolve } = path;
 
