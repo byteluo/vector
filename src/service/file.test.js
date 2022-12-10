@@ -2,7 +2,11 @@ const os = require('os');
 const fs = require('fs/promises');
 const path = require('path');
 
-const { collectAllFilesInDir, readMarkdownFile } = require('./file');
+const {
+    collectAllFilesInDir,
+    readMarkdownFile,
+    ensureDirExist,
+} = require('./file');
 
 const { resolve } = path;
 
@@ -19,6 +23,7 @@ async function makeEmptyFile(file) {
 
 test('file.collectAllFilesInDir', async () => {
     const targetPath = resolve(VECTOR_TEST_DIR, 'file.collectAllFilesInDir');
+    await ensureDirExist(targetPath);
     await fs.rmdir(targetPath, { force: true, recursive: true });
 
     await makeEmptyFile(resolve(targetPath, '1'));

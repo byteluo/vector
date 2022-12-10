@@ -29,8 +29,8 @@ async function readWebsiteData(dirPath) {
         id: getStringMD5(resolve(dirPath)),
         _private: {
             path: resolve(dirPath, LIST_FILE_NAME),
-            list: false
-        }
+            list: false,
+        },
     };
     const result = [];
 
@@ -86,7 +86,8 @@ async function startRender() {
     await service.parallelRun(handledData, async (obj) => {
         const { _private, ...restProps } = obj;
         await ensureParentDirExit(_private.savePath);
-        _private.savePath && await fs.writeFile(_private.savePath, JSON.stringify(restProps));
+        _private.savePath &&
+            (await fs.writeFile(_private.savePath, JSON.stringify(restProps)));
     });
 }
 

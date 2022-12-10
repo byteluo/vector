@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "concurrently \"anywhere -s -d ./dist -p 4000\" \"cross-env NODE_ENV=development nodemon --config nodemon.json src/app.js\"",
         "start": "node src/app.js",
-        "server": "",
+        "server": "yarn dev",
         "build": "pkg src/app.js -o vector",
         "format": "prettier --write .",
         "test": "jest"

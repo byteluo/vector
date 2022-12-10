@@ -34,7 +34,5 @@ You could create a `vector.config` file in the same directory of `vector.exe`.
 
 ### Markdown Config
 
-* **except** Not Render this File.
-* **lock** Use `VectorConfig.encryptKey` encrypt this article.
-
-
+-   **except** Not Render this File.
+-   **lock** Use `VectorConfig.encryptKey` encrypt this article.

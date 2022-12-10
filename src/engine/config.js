@@ -15,12 +15,10 @@ function getConfig() {
     return config;
 }
 
-function resetConfig() {
-
-}
+function resetConfig() {}
 
 module.exports = {
     resetConfig,
     getConfig,
-    setConfig
+    setConfig,
 };
