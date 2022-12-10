@@ -70,6 +70,9 @@ setHook('core', (items) => {
         item.items = item.items
             .map((itemId) => {
                 const linkedObj = map[itemId];
+                if (!linkedObj) {
+                    return;
+                }
                 linkedObj._private.linked = true;
                 const { id, title, mtime } = linkedObj;
                 return {
@@ -78,7 +81,7 @@ setHook('core', (items) => {
                     mtime,
                 };
             })
-            .filter((item) => !item.except);
+            .filter((item) => item && !item.except);
     });
 
     // generate save path
