@@ -2,7 +2,7 @@ const path = require('path');
 
 const config = {
     sourceDir: path.resolve('source'),
-    distDir: path.resolve('dist'),
+    distDir: path.resolve('api'),
     dataDir: path.join('data'),
     encryptKey: '123456',
     gitRepoes: [{ tag: '_ROOT', url: 'git@gitee.com:bytesci/treecat-doc.git' }],
