@@ -762,7 +762,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-anywhere@^1.6.0:
+anywhere@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/anywhere/-/anywhere-1.6.0.tgz#5fb0c29c0d765a412c81082513c08ccbaf899550"
   integrity sha512-X+MpvNGoZNAFsQkyvgBcCdAoz8yHULnW5gfmNrjkGXr6VrtWxsCSlT3bAbbmAE2/umhU9TMF2ffRBL/H2hHvzA==
@@ -2839,7 +2839,7 @@ node-releases@^2.0.6:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.6.tgz#8a7088c63a55e493845683ebf3c828d8c51c5503"
   integrity sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==
 
-nodemon@^2.0.20:
+nodemon@2.0.20:
   version "2.0.20"
   resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-2.0.20.tgz#e3537de768a492e8d74da5c5813cb0c7486fc701"
   integrity sha512-Km2mWHKKY5GzRg6i1j5OxOHQtuvVsgskLfigG25yTtbyfRGn/GNvIbRyOf1PSCKJ2aT/58TiuUsuOU5UToVViw==
