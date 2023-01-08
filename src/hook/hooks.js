@@ -18,7 +18,7 @@ function isDirectoryItem(item) {
 setHook('markdown', (items) =>
     items.map((item) => {
         item.content =
-            item.content && renderMarkdown(item.content, item._private.path);
+            item.content && renderMarkdown(item.content, path.dirname(item._private.path));
         return item;
     })
 );

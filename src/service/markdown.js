@@ -104,8 +104,11 @@ md.renderer.rules.image = function (tokens, _a, _b, { imageBasePath }) {
                     if (!srcValue.startsWith('http')) {
                         url = path.resolve(imageBasePath, url);
                     }
+                    const prefix = 'http://127.0.0.1:4000';
                     bundle[1] =
-                        '/images/' + (fileCacheContainer[url] || 'error.jpg');
+                        prefix +
+                        '/images/' +
+                        (fileCacheContainer[url] || 'error.jpg');
                 }
             });
         });
